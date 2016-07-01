@@ -51,3 +51,27 @@ test with
 ```
 curl GET 'http://localhost:8080' -i
 ```
+
+add camunda dependencies to pom.xml
+```
+<!-- Camunda engine dependency -->
+<dependency>
+	<groupId>org.camunda.bpm</groupId>
+	<artifactId>camunda-engine</artifactId>
+	<version>7.5.0</version>
+</dependency>
+
+<!-- Camunda cdi beans -->
+<dependency>
+	<groupId>org.camunda.bpm</groupId>
+	<artifactId>camunda-engine-cdi</artifactId>
+	<version>7.5.0</version>
+</dependency>
+
+<!-- provides a default EjbProcessApplication -->
+<dependency>
+	<groupId>org.camunda.bpm.javaee</groupId>
+	<artifactId>camunda-ejb-client</artifactId>
+	<version>7.5.0</version>
+</dependency>
+```
