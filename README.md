@@ -6,7 +6,7 @@ Getting started with camunda bpmn. Step by step training.
 - http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neonr
 
 ##Notes
--generate mvn artifact via archtype
+generate mvn artifact via archtype
 ```
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
                 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
