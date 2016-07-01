@@ -6,22 +6,32 @@ Getting started with camunda bpmn. Step by step training.
 - http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neonr
 
 ##Notes
-- generate mvn artifact via archtype
+-generate mvn artifact via archtype
 ```
 mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
                 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
                 -DgroupId=com.small -DartifactId=getting-started-with-camunda -Dpackage=com.small \
                 -DarchetypeVersion=2.23.1
 ```
-- import existing maven project into workspace
-- setup wildfly server configuration
-- adapt web app path
--- modify web.xml
----  <url-pattern>/*</url-pattern>
--- modify MyResource.java
---- @Path("")
---- rename class to ApiResource
--- modify add jboss web.xml
+import existing maven project into workspace
+
+setup wildfly server configuration
+
+adapt web app path in web.xml, resource class and jboss web.xml
+
+modify web.xml
+```
+ <url-pattern>/*</url-pattern>
+ ```
+
+modify MyResource.java
+```
+@Path("")
+```
+
+rename class to ApiResource
+
+add jboss-web.xml
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
@@ -32,9 +42,12 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
    <context-root>/</context-root>
 </jboss-web>
 ```
-- start server
-- deploy project
-- test with 
+
+start server
+
+deploy project
+
+test with 
 ```
 curl GET 'http://localhost:8080' -i
 ```
