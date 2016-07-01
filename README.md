@@ -1,7 +1,9 @@
 # camunda-bpmn-training
 Getting started with camunda bpmn. Step by step training.
 
-##Step by step command overview
+##Setup project
+
+1) Create new maven project
 
 Maven jersey-quickstart archtype
 https://jersey.java.net/documentation/latest/getting-started.html#new-from-archetype
