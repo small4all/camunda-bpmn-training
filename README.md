@@ -74,4 +74,22 @@ add camunda dependencies to pom.xml
 	<artifactId>camunda-ejb-client</artifactId>
 	<version>7.5.0</version>
 </dependency>
+
+
+<!-- Java EE 7 Specification -->
+<dependency>
+	<groupId>org.jboss.spec</groupId>
+	<artifactId>jboss-javaee-7.0</artifactId>
+  	<version>1.0.3.Final</version>
+  	<type>pom</type>
+  	<scope>provided</scope>
+  	<exclusions>
+		<exclusion>
+  			<artifactId>xalan</artifactId>
+  			<groupId>xalan</groupId>
+		</exclusion>
+  	</exclusions>
+</dependency>   
 ```
+
+add empty WEB-INF/beans.xml
