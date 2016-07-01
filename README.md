@@ -17,6 +17,10 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
 - setup wildfly server configuration
 - adapt web app path
 -- modify web.xml
+---  <url-pattern>/*</url-pattern>
+-- modify MyResource.java
+--- @Path("")
+--- rename class to ApiResource
 -- modify add jboss web.xml
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -28,7 +32,6 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
    <context-root>/</context-root>
 </jboss-web>
 ```
--- modify MyResource.java
 - start server
 - deploy project
 - test with 
