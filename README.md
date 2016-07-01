@@ -8,10 +8,7 @@ Getting started with camunda bpmn. Step by step training.
 Maven jersey-quickstart archtype
 https://jersey.java.net/documentation/latest/getting-started.html#new-from-archetype
 ```
-mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 \
--DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false \
--DgroupId=com.example -DartifactId=simple-service -Dpackage=com.example \
--DarchetypeVersion=2.23.1
+mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-grizzly2 -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false -DgroupId=com.small -DartifactId=getting-started-with-camunda -Dpackage=com.small -DarchetypeVersion=2.23.1
 ```
 
 ###Download links
