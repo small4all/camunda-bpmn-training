@@ -21,12 +21,12 @@ adapt web app path in web.xml, resource class and jboss web.xml
 
 modify web.xml
 ```
- <url-pattern>/*</url-pattern>
+ <url-pattern>/api/*</url-pattern>
  ```
 
 modify MyResource.java
 ```
-@Path("")
+@Path("api")
 ```
 
 rename class to ApiResource
@@ -39,17 +39,17 @@ add jboss-web.xml
    xsi:schemaLocation="
       http://www.jboss.com/xml/ns/javaee
       http://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd">
-   <context-root>/</context-root>
+   <context-root>/bpmn</context-root>
 </jboss-web>
 ```
 
-start server
+start jboss server
 
 deploy project
 
 test with 
 ```
-curl GET 'http://localhost:8080' -i
+curl GET 'http://localhost:8080/bpmn/api' -i
 ```
 
 add camunda dependencies to pom.xml
@@ -75,6 +75,12 @@ add camunda dependencies to pom.xml
 	<version>7.5.0</version>
 </dependency>
 
+<!-- https://docs.camunda.org/manual/7.5/user-guide/process-engine/id-generator/ -->
+<dependency>
+	<groupId>com.fasterxml.uuid</groupId>
+	<artifactId>java-uuid-generator</artifactId>	
+	<version>3.1.2</version>
+</dependency>
 
 <!-- Java EE 7 Specification -->
 <dependency>
@@ -92,4 +98,35 @@ add camunda dependencies to pom.xml
 </dependency>   
 ```
 
+additional add some logger of your choise
+
 add empty WEB-INF/beans.xml
+
+do first process engine api call. for example:
+{code}
+package com.small;
+
+import javax.inject.Inject;
+
+import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.slf4j.Logger;
+
+public class ProcessEngineService {
+	
+	@Inject
+	private ProcessEngine processEngine;
+	
+	@Inject
+	private Logger logger;
+	
+	public ProcessInstance startProcess(String processKey) {
+		logger.info("Start process {}", processKey);
+		
+		ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceByKey(processKey);
+		return processInstance;
+	}
+}
+{code}
+
+download camunda modeler and implement bpmn process
