@@ -130,3 +130,14 @@ public class ProcessEngineService {
 ```
 
 download camunda modeler and implement bpmn process
+
+- add start end
+- add ejb service task
+- add exclusive gateway with two sequence flows
+- add user task with form properties
+- add user task with external form
+- add error boundary event with user task
+- add timer
+- add messages
+- add events
+- add lanes and pools
