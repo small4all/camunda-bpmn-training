@@ -103,7 +103,7 @@ additional add some logger of your choise
 add empty WEB-INF/beans.xml
 
 do first process engine api call. for example:
-{code}
+```
 package com.small;
 
 import javax.inject.Inject;
@@ -127,6 +127,6 @@ public class ProcessEngineService {
 		return processInstance;
 	}
 }
-{code}
+```
 
 download camunda modeler and implement bpmn process
