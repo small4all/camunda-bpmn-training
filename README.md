@@ -1,9 +1,10 @@
 # camunda-bpmn-training
 Getting started with camunda bpmn. Step by step training.
 
-###Download links
+###Links
 - https://camunda.org/download/modeler/
 - http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neonr
+- https://camunda.org/bpmn/reference/
 
 ##Notes
 generate mvn artifact via archtype
