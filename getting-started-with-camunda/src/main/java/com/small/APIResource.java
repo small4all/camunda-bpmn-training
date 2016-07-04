@@ -8,6 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 
@@ -27,7 +28,28 @@ public class APIResource {
 	@POST
 	@Path("process/{processKey}")
 	public Response postStartProcess(@PathParam("processKey") String processKey) {
-		ProcessInstance process = processEngineService.startProcess(processKey);
-		return Response.ok(process.getId()).build();
+		ProcessInstance processInstance = processEngineService.startProcess(processKey);
+		return Response.ok(processInstance.getId()).build();
+	}
+
+	@GET
+	@Path("process/instance/{processInstanceId}/printTasks")
+	public Response getPrintTasks(@PathParam("processInstanceId") String processInstanceId) {
+		processEngineService.printTasks(processInstanceId);
+		return Response.noContent().build();
+	}
+
+	@POST
+	@Path("process/tasks/{id}/complete")
+	public Response postCompleteTask(@PathParam("id") String id) {
+		processEngineService.completeTask(id);
+		return Response.status(Status.CREATED).build();
+	}
+	
+	@POST
+	@Path("process/instance/{processInstanceId}/completeCascading")
+	public Response postCompleteCascading(@PathParam("processInstanceId") String processInstanceId) {
+		processEngineService.completeCascading(processInstanceId);
+		return Response.status(Status.CREATED).build();
 	}
 }
