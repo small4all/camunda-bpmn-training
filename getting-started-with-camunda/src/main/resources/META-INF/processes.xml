@@ -2,16 +2,19 @@
 	xmlns="http://www.camunda.org/schema/1.0/ProcessApplication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<process-engine name="default">
-		<configuration>org.camunda.bpm.engine.cdi.CdiJtaProcessEngineConfiguration</configuration>
 		<datasource>java:jboss/datasources/process-engine</datasource>
 		<properties>
 			<property name="history">full</property>
 			<property name="databaseSchemaUpdate">false</property>
-			<property name="transactionManagerJndiName">java:/TransactionManager</property>
 			<property name="jobExecutorActivate">true</property>
 			<property name="transactionsExternallyManaged">true</property>
 			<property name="databaseSchemaUpdate">true</property>
 		</properties>
+		<plugins>
+			<plugin>
+				<class>org.camunda.bpm.application.impl.event.ProcessApplicationEventListenerPlugin</class>
+			</plugin>
+		</plugins>
 	</process-engine>
 
 	<process-archive>

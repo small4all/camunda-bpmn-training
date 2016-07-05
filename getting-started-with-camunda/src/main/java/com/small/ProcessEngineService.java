@@ -8,6 +8,8 @@ import javax.inject.Inject;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.cdi.BusinessProcessEvent;
+import org.camunda.bpm.engine.cdi.annotation.event.CompleteTask;
+import org.camunda.bpm.engine.cdi.annotation.event.CreateTask;
 import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
@@ -41,8 +43,7 @@ public class ProcessEngineService {
 		Task task = processEngine.getTaskService().createTaskQuery().taskId(id).singleResult();
 		processEngine.getTaskService().complete(task.getId());
 
-		logger.info("Completed task {}, name: {}, description: {}", task.getId(), task.getName(),
-				task.getDescription());
+		logger.info("Completed task {}, name: {}, description: {}", task.getId(), task.getName(), task.getDescription());
 	}
 
 	public void completeCascading(String processInstanceId) {
@@ -64,7 +65,18 @@ public class ProcessEngineService {
 		logger.info("as object {}", taskFormData);
 	}
 
-	public void observeBusinessProcessEvent(@Observes BusinessProcessEvent businessProcessEvent) {
-		logger.info("receive BusinessProcessEvent of type {}", businessProcessEvent.getType());
+	/**
+	 * https://github.com/camunda/camunda-docs-manual/blob/master/content/user-guide/cdi-java-ee-integration/the-cdi-event-bridge.md
+	 */
+	public void onAllBusinessProcessEvent(@Observes BusinessProcessEvent businessProcessEvent) {
+		logger.info("receive BusinessProcessEvent: {}", businessProcessEvent);
+	}
+
+	public void onCreateTaskEvent(@Observes @CreateTask("approveRegistration") BusinessProcessEvent businessProcessEvent) {
+		logger.info("task {} created", businessProcessEvent.getTask().getName());
+	}
+
+	public void onCompleteaskEvent(@Observes @CompleteTask("approveRegistration") BusinessProcessEvent businessProcessEvent) {
+		logger.info("task {} completed", businessProcessEvent.getTask().getName());
 	}
 }

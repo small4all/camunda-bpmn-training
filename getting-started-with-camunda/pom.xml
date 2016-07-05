@@ -51,13 +51,6 @@
 			<artifactId>camunda-engine-cdi</artifactId>
 			<version>7.5.0</version>
 		</dependency>
-
-		<!-- provides a default EjbProcessApplication -->
-		<dependency>
-			<groupId>org.camunda.bpm.javaee</groupId>
-			<artifactId>camunda-ejb-client</artifactId>
-			<version>7.5.0</version>
-		</dependency>
 		
 		<!-- https://docs.camunda.org/manual/7.5/user-guide/process-engine/id-generator/ -->
 		<dependency>
