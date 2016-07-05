@@ -6,7 +6,10 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.cdi.BusinessProcessEvent;
 import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -17,20 +20,33 @@ import org.slf4j.Logger;
 public class ProcessEngineService {
 
 	@Inject
-	private ProcessEngine processEngine;
+	private ProcessEngine proocessEngine;
+	
+	@Inject
+	private RuntimeService runtimeService;
+
+	@Inject
+	private TaskService taskService;
+
+	@Inject
+	private FormService formService;
 
 	@Inject
 	private Logger logger;
 
+	public void getName() {
+		logger.info(proocessEngine.getName());
+	}
+	
 	public ProcessInstance startProcess(String processKey) {
 		logger.info("Start process {}", processKey);
 
-		ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceByKey(processKey);
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processKey);
 		return processInstance;
 	}
 
 	public void printTasks(String processInstanceId) {
-		List<Task> tasks = processEngine.getTaskService().createTaskQuery().processInstanceId(processInstanceId).list();
+		List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
 
 		for (Task task : tasks) {
 			logger.info("Task {}, name: {}, description: {}", task.getId(), task.getName(), task.getDescription());
@@ -38,14 +54,14 @@ public class ProcessEngineService {
 	}
 
 	public void completeTask(String id) {
-		Task task = processEngine.getTaskService().createTaskQuery().taskId(id).singleResult();
-		processEngine.getTaskService().complete(task.getId());
+		Task task = taskService.createTaskQuery().taskId(id).singleResult();
+		taskService.complete(task.getId());
 
 		logger.info("Completed task {}, name: {}, description: {}", task.getId(), task.getName(), task.getDescription());
 	}
 
 	public void completeCascading(String processInstanceId) {
-		List<Task> tasks = processEngine.getTaskService().createTaskQuery().processInstanceId(processInstanceId).list();
+		List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceId).list();
 		for (Task task : tasks) {
 			completeTask(task.getId());
 		}
@@ -56,10 +72,10 @@ public class ProcessEngineService {
 	}
 
 	public void getTaskForm(String id) {
-		Object renderedTaskForm = processEngine.getFormService().getRenderedTaskForm(id);
+		Object renderedTaskForm = formService.getRenderedTaskForm(id);
 		logger.info("my task form {}", renderedTaskForm);
 
-		TaskFormData taskFormData = processEngine.getFormService().getTaskFormData(id);
+		TaskFormData taskFormData = formService.getTaskFormData(id);
 		logger.info("as object {}", taskFormData);
 	}
 
