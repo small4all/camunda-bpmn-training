@@ -16,7 +16,7 @@ mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp \
 ```
 import existing maven project into workspace
 
-setup wildfly server configuration
+setup jboss eap server configuration
 
 adapt web app path in web.xml, resource class and jboss web.xml
 
