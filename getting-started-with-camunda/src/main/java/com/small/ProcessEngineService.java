@@ -8,8 +8,6 @@ import javax.inject.Inject;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.cdi.BusinessProcessEvent;
-import org.camunda.bpm.engine.cdi.annotation.event.CompleteTask;
-import org.camunda.bpm.engine.cdi.annotation.event.CreateTask;
 import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
@@ -68,15 +66,7 @@ public class ProcessEngineService {
 	/**
 	 * https://github.com/camunda/camunda-docs-manual/blob/master/content/user-guide/cdi-java-ee-integration/the-cdi-event-bridge.md
 	 */
-	public void onAllBusinessProcessEvent(@Observes BusinessProcessEvent businessProcessEvent) {
+	public void onBusinessProcessEvent(@Observes BusinessProcessEvent businessProcessEvent) {
 		logger.info("receive BusinessProcessEvent: {}", businessProcessEvent);
-	}
-
-	public void onCreateTaskEvent(@Observes @CreateTask("approveRegistration") BusinessProcessEvent businessProcessEvent) {
-		logger.info("task {} created", businessProcessEvent.getTask().getName());
-	}
-
-	public void onCompleteaskEvent(@Observes @CompleteTask("approveRegistration") BusinessProcessEvent businessProcessEvent) {
-		logger.info("task {} completed", businessProcessEvent.getTask().getName());
 	}
 }
