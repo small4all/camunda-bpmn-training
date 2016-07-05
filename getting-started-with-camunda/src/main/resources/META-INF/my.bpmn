@@ -61,7 +61,6 @@
       <bpmn:outgoing>SequenceFlow_0tjuya9</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="UserTask_10aqskm" name="User task B">
-      <bpmn:documentation>do some for domain ${domain_name}</bpmn:documentation>
       <bpmn:incoming>SequenceFlow_0tjuya9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1584yur</bpmn:outgoing>
     </bpmn:userTask>

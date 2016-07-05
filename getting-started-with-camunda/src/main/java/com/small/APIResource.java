@@ -45,18 +45,27 @@ public class APIResource {
 		processEngineService.completeTask(id);
 		return Response.status(Status.CREATED).build();
 	}
-	
+
 	@GET
 	@Path("process/tasks/{id}/form")
 	public Response getTaskFrom(@PathParam("id") String id) {
 		processEngineService.getTaskForm(id);
-		return Response.status(Status.CREATED).build();
+		return Response.ok().build();
 	}
-	
+
 	@POST
 	@Path("process/instance/{processInstanceId}/completeCascading")
 	public Response postCompleteCascading(@PathParam("processInstanceId") String processInstanceId) {
 		processEngineService.completeCascading(processInstanceId);
 		return Response.status(Status.CREATED).build();
 	}
+
+	@POST
+	@Path("process/{processKey}/start-and-complete")
+	public Response postStartAndCompleteProcess(@PathParam("processKey") String processKey) {
+		ProcessInstance processInstance = processEngineService.startProcess(processKey);
+		processEngineService.completeCascading(processInstance.getId());
+		return Response.status(Status.CREATED).build();
+	}
+
 }
