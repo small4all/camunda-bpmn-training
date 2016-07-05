@@ -46,6 +46,13 @@ public class APIResource {
 		return Response.status(Status.CREATED).build();
 	}
 	
+	@GET
+	@Path("process/tasks/{id}/form")
+	public Response getTaskFrom(@PathParam("id") String id) {
+		processEngineService.getTaskForm(id);
+		return Response.status(Status.CREATED).build();
+	}
+	
 	@POST
 	@Path("process/instance/{processInstanceId}/completeCascading")
 	public Response postCompleteCascading(@PathParam("processInstanceId") String processInstanceId) {
